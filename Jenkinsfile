@@ -2,7 +2,7 @@ pipeline {
     agent any  // Herhangi bir ajan kullanılabilir, ancak belirli bir ajan seçebilirsiniz.
 
     environment {
-        DOTNET_VERSION = '9.0.102'  // Kullanmak istediğiniz .NET Core sürümünü belirtin.
+        DOTNET_VERSION = '7.0.x'  // Kullanmak istediğiniz .NET Core sürümünü belirtin.
     }
 
     stages {
