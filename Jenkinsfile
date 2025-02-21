@@ -33,7 +33,7 @@ pipeline {
                 script {
                     // Test projelerini çalıştırıyoruz
                     bat 'dotnet test Testing/Testing.csproj --configuration Release --no-build --verbosity normal --logger "xunit;LogFilePath=test-results.xml"'
-                    junit '**/test-results.xml'  // Test sonuçlarını junit formatında al
+                   
                 }
             }
         }
