@@ -13,14 +13,10 @@ pipeline {
             steps {
                 script {
                     // .NET Core SDK kurulumunu başlatıyoruz
-                    // .NET Core SDK kurulumunu başlatıyoruz
-                          // .NET Core SDK kurulumunu başlatıyoruz
-bat 'C:\\Program Files\\PowerShell\\7\\pwsh.exe -Command "Invoke-WebRequest https://aka.ms/install-dotnet.ps1 -OutFile dotnet-install.ps1"'
-bat 'C:\\Program Files\\PowerShell\\7\\pwsh.exe -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force"'  // ExecutionPolicy ayarlarını yapıyoruz
-bat 'C:\\Program Files\\PowerShell\\7\\pwsh.exe -Command ".\\dotnet-install.ps1 -Channel 9.0.102"'  // Sabit sürüm numarası ile kurulum
-bat 'C:\\Program Files\\PowerShell\\7\\pwsh.exe -Command "dotnet --version"' // Yüklenen .NET sürümünü doğrulamak için
-
-
+                    bat '"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Invoke-WebRequest https://aka.ms/install-dotnet.ps1 -OutFile dotnet-install.ps1"'
+                    bat '"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force"'  // ExecutionPolicy ayarlarını yapıyoruz
+                    bat '"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command ".\\dotnet-install.ps1 -Channel 9.0.102"'  // Sabit sürüm numarası ile kurulum
+                    bat '"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "dotnet --version"' // Yüklenen .NET sürümünü doğrulamak için
                 }
             }
         }
@@ -57,16 +53,4 @@ bat 'C:\\Program Files\\PowerShell\\7\\pwsh.exe -Command "dotnet --version"' // 
 
     post {
         always {
-            // Çalışma dizinini temizler
-            cleanWs()
-        }
-        success {
-            // Başarı durumunda yapılacak işlemler
-            echo 'Pipeline başarılı oldu!'
-        }
-        failure {
-            // Başarısız durumda yapılacak işlemler
-            echo 'Pipeline başarısız oldu.'
-        }
-    }
-} 
+            //
