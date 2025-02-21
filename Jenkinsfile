@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     // .NET Core SDK kurulumunu başlatıyoruz
-                    bat 'powershell -Command "Invoke-WebRequest https://dotnet.microsoft.com/download/dotnet-core/scripts/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1"'
+                    bat 'powershell -Command "Invoke-WebRequest https://aka.ms/install-dotnet.ps1 -OutFile dotnet-install.ps1"'
                     bat 'powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force"'  // ExecutionPolicy ayarlarını yapıyoruz
                     bat 'powershell -Command ".\\dotnet-install.ps1 -Channel 9.0.102"'  // Sabit sürüm numarası ile kurulum
                     bat 'dotnet --version' // Yüklenen .NET sürümünü doğrulamak için
