@@ -1,10 +1,6 @@
 pipeline {
     agent any  // Herhangi bir ajan kullanılabilir, ancak belirli bir ajan seçebilirsiniz.
 
-    environment {
-        DOTNET_VERSION = '9.0.102'  // Kullanmak istediğiniz .NET Core sürümünü belirtin.
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -15,12 +11,12 @@ pipeline {
 
         stage('Set up .NET Core') {
             steps {
-                // .NET Core SDK kurulumu
                 script {
+                    // .NET Core SDK kurulumunu başlatıyoruz
                     bat 'powershell -Command "Invoke-WebRequest https://dotnet.microsoft.com/download/dotnet-core/scripts/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1"'
-                    bat 'powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser"'
-                    bat 'powershell -Command ".\\dotnet-install.ps1 -Channel $env:DOTNET_VERSION"'
-                    bat 'dotnet --version'  // Yüklenen .NET sürümünü doğrulamak için
+                    bat 'powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force"'  // ExecutionPolicy ayarlarını yapıyoruz
+                    bat 'powershell -Command ".\\dotnet-install.ps1 -Channel 9.0.102"'  // Sabit sürüm numarası ile kurulum
+                    bat 'dotnet --version' // Yüklenen .NET sürümünü doğrulamak için
                 }
             }
         }
