@@ -53,4 +53,16 @@ pipeline {
 
     post {
         always {
-            //
+            // Çalışma dizinini temizler
+            cleanWs()
+        }
+        success {
+            // Başarı durumunda yapılacak işlemler
+            echo 'Pipeline başarılı oldu!'
+        }
+        failure {
+            // Başarısız durumda yapılacak işlemler
+            echo 'Pipeline başarısız oldu.'
+        }
+    }
+}
