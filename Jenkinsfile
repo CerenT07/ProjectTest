@@ -1,11 +1,6 @@
 pipeline {
     agent any  // Herhangi bir ajan kullanılabilir, ancak belirli bir ajan seçebilirsiniz.
 
-    tools {
-        // .NET SDK'yı buradaki sürüm numarasını belirterek kullanıyoruz.
-        dotnet 'dotnet-sdk-9.0.102'  // SDK'nın doğru sürüm numarasını buraya yazın.
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -17,7 +12,7 @@ pipeline {
         stage('Set up .NET Core') {
             steps {
                 script {
-                    // .NET Core SDK'yı yüklemek için gerekli PowerShell komutlarını çalıştırıyoruz
+                    // .NET Core SDK kurulumunu başlatıyoruz
                     bat 'powershell -Command "Invoke-WebRequest https://dotnet.microsoft.com/download/dotnet-core/scripts/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1"'
                     bat 'powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force"'  // ExecutionPolicy ayarlarını yapıyoruz
                     bat 'powershell -Command ".\\dotnet-install.ps1 -Channel 9.0.102"'  // Sabit sürüm numarası ile kurulum
@@ -70,4 +65,4 @@ pipeline {
             echo 'Pipeline başarısız oldu.'
         }
     }
-}
+} 
