@@ -1,56 +1,46 @@
 pipeline {
-    agent any  // Herhangi bir ajan kullanılabilir
+    agent any
 
     stages {
         stage('Checkout') {
             steps {
-                // GitHub reposundan kodu çekme
-                git 'https://github.com/CerenT07/ProjectTest.git'  // Buraya kendi repo URL'nizi yazın
+                // Git branch adını doğru girin: 'main' veya 'master'
+                git branch: 'main', url: 'https://github.com/CerenT07/WebApiTest.git'
             }
         }
 
         stage('Restore Dependencies') {
             steps {
-                // Ana proje bağımlılıklarını yükleme
-                script {
-                    bat 'dotnet restore Project/Project.csproj'  // Ana projeyi restore ediyoruz
-                }
+                bat 'dotnet restore WepApi/WepApi.csproj'
             }
         }
 
         stage('Build') {
             steps {
-                // Ana projeyi derleme
-                script {
-                    bat 'dotnet build Project/Project.csproj --configuration Release'
-                }
+                bat 'dotnet build WepApi/WepApi.csproj --configuration Release'
             }
         }
 
-        stage('Test') {
+        stage('Docker Build') {
             steps {
-                // Testleri çalıştırma
-                script {
-                    // Test projelerini çalıştırıyoruz
-                    bat 'dotnet test Testing/Testing.csproj --configuration Release --no-build --verbosity normal --logger "xunit;LogFilePath=test-results.xml"'
-                   
-                }
+                bat 'docker build -t wepapi:dev C:/Users/HP/source/repos/WepApi/WepApi'
+            }
+        }
+
+        stage('Docker Run') {
+            steps {
+                bat 'docker run -d --name my-container-name wepapi:dev'
             }
         }
     }
 
     post {
-        always {
-            // Çalışma dizinini temizler
-            cleanWs()
-        }
         success {
-            // Başarı durumunda yapılacak işlemler
-            echo 'Pipeline başarılı oldu!'
+            echo 'This pipeline is working successfully!'
         }
+
         failure {
-            // Başarısız durumda yapılacak işlemler
-            echo 'Pipeline başarısız oldu.'
+            echo 'This pipeline is not working correctly!'
         }
     }
 }
